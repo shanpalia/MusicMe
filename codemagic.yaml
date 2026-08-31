@@ -1,0 +1,28 @@
+workflows:
+  musicme-debug-apk:
+    name: MusicMe Debug APK
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      java: 17
+    scripts:
+      - name: Grant Gradle execute permission
+        script: chmod +x gradlew
+      - name: Build Debug APK
+        script: ./gradlew assembleDebug --stacktrace
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+
+  musicme-release-apk:
+    name: MusicMe Release APK
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      java: 17
+    scripts:
+      - name: Grant Gradle execute permission
+        script: chmod +x gradlew
+      - name: Build Release APK
+        script: ./gradlew assembleRelease --stacktrace
+    artifacts:
+      - app/build/outputs/apk/release/*.apk
