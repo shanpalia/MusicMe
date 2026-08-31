@@ -1,0 +1,6 @@
+{
+  "name": "MusicMe",
+  "description": "A modern, full-featured Android music player for offline playback, playlists, favourites, queue management, and background audio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
