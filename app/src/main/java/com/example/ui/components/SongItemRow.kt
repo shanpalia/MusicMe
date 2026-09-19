@@ -85,15 +85,8 @@ fun SongItemRow(
                 contentDescription = "Album art for ${song.title}",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(48.dp),
-                error = null
-            )
-
-            // Music note placeholder overlay if art is missing
-            Icon(
-                imageVector = Icons.Default.MusicNote,
-                contentDescription = null,
-                tint = if (isCurrentSong) IndigoLight.copy(alpha = 0.6f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
-                modifier = Modifier.size(24.dp)
+                placeholder = androidx.compose.ui.res.painterResource(id = R.drawable.musicme_icon),
+                error = androidx.compose.ui.res.painterResource(id = R.drawable.musicme_icon)
             )
 
             if (isCurrentSong) {
