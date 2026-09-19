@@ -2,6 +2,8 @@ package com.example.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +26,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -195,6 +198,35 @@ fun SettingsScreen(
                         },
                         onClick = { showThemeDialog = true },
                         testTag = "settings_theme_item"
+                    )
+                }
+            }
+
+            // App Update Section
+            item {
+                SettingsSectionHeader("App Update")
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(14.dp)),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                ) {
+                    SettingsItem(
+                        icon = Icons.Default.SystemUpdate,
+                        title = "Check App Update",
+                        subtitle = "Open PaliaAPK HUB to check the latest MusicMe version",
+                        onClick = {
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://shanpalia.github.io/WebsitePaliaAPK_V.2/")
+                            )
+                            runCatching { android.content.ContextWrapper(null) }
+                            try {
+                                val context = androidx.compose.ui.platform.LocalContext.current
+                            } catch (_: Exception) {
+                            }
+                        },
+                        testTag = "settings_app_update_item"
                     )
                 }
             }
