@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.R
 import com.example.model.Song
 import com.example.ui.theme.IndigoLight
 import com.example.ui.theme.IndigoPrimary
@@ -70,6 +71,12 @@ fun SongItemRow(
                 .background(MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.Center
         ) {
+            androidx.compose.foundation.Image(
+                painter = androidx.compose.ui.res.painterResource(id = R.drawable.musicme_icon),
+                contentDescription = "MusicMe",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(48.dp)
+            )
             AsyncImage(
                 model = ImageRequest.Builder(context)
                     .data(song.albumArtUri)
