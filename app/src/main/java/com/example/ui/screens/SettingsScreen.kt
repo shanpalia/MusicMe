@@ -1,5 +1,6 @@
 package com.example.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import android.content.Intent
@@ -61,6 +62,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ui.theme.AppThemeMode
 import com.example.ui.theme.CyanAccent
 import com.example.ui.theme.PurplePrimary
+import com.example.R
 import com.example.ui.viewmodel.MusicViewModel
 import com.example.ui.viewmodel.Screen
 
@@ -277,19 +279,15 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .size(42.dp)
-                                    .clip(CircleShape)
-                                    .background(PurplePrimary.copy(alpha = 0.2f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(Icons.Default.MusicNote, contentDescription = null, tint = CyanAccent)
-                            }
+                            Image(
+                                painter = painterResource(id = R.drawable.musicme_icon),
+                                contentDescription = "MusicMe App Icon",
+                                modifier = Modifier.size(48.dp).clip(CircleShape)
+                            )
                             Spacer(modifier = Modifier.width(12.dp))
                             Column {
                                 Text(
-                                    text = "MusicMe",
+                                    text = "MusicME By PaliaAPK HUB",
                                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
