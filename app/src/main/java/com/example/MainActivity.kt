@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.animation.Crossfade
@@ -54,7 +54,28 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        window.setDecorFitsSystemWindows(true)
+        window.navigationBarColor = android.graphics.Color.BLACK
+        window.statusBarColor = android.graphics.Color.BLACK
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when {
+                    viewModel.isNowPlayingExpanded.value -> viewModel.setNowPlayingExpanded(false)
+                    viewModel.selectedSongForMenu.value != null -> viewModel.closeSongMenu()
+                    viewModel.selectedSongForDetails.value != null -> viewModel.closeSongDetails()
+                    viewModel.selectedSongForAddToPlaylist.value != null -> viewModel.closeAddToPlaylist()
+                    viewModel.isQueueSheetOpen.value -> viewModel.setQueueSheetOpen(false)
+                    viewModel.currentScreen.value is Screen.AlbumDetail -> viewModel.navigateTo(Screen.Albums)
+                    viewModel.currentScreen.value is Screen.ArtistDetail -> viewModel.navigateTo(Screen.Artists)
+                    viewModel.currentScreen.value is Screen.PlaylistDetail -> viewModel.navigateTo(Screen.Library)
+                    viewModel.currentScreen.value == Screen.Settings || viewModel.currentScreen.value == Screen.Search -> viewModel.navigateTo(Screen.Home)
+                    viewModel.currentScreen.value == Screen.Songs || viewModel.currentScreen.value == Screen.Albums || viewModel.currentScreen.value == Screen.Artists || viewModel.currentScreen.value == Screen.Library -> viewModel.navigateTo(Screen.Home)
+                    viewModel.currentScreen.value == Screen.Home -> finish()
+                    else -> finish()
+                }
+            }
+        })
 
         setContent {
             val themeMode by viewModel.themeMode.collectAsState()
