@@ -38,8 +38,8 @@ class MediaScanner(private val context: Context) {
             MediaStore.Audio.Media.DATE_ADDED
         )
 
-        // Filter for real music files only (at least 3 seconds long to ignore short ui sounds)
-        val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION} >= 3000"
+        // Scan all indexed audio files on the device; ignore only very short system/UI sounds
+        val selection = "${MediaStore.Audio.Media.DURATION} >= 3000"
         val sortOrder = "${MediaStore.Audio.Media.TITLE} ASC"
 
         try {
