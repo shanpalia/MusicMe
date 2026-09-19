@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.R
 import com.example.model.PlaybackState
 import com.example.ui.theme.IndigoLight
 import com.example.ui.theme.IndigoPrimary
@@ -99,6 +100,12 @@ fun MiniPlayer(
                                     .background(IndigoPrimary.copy(alpha = 0.15f)),
                                 contentAlignment = Alignment.Center
                             ) {
+                                androidx.compose.foundation.Image(
+                                    painter = androidx.compose.ui.res.painterResource(id = R.drawable.musicme_icon),
+                                    contentDescription = "MusicMe",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.size(46.dp)
+                                )
                                 AsyncImage(
                                     model = ImageRequest.Builder(context)
                                         .data(song.albumArtUri)
