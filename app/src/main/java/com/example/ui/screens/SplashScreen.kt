@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -60,7 +62,9 @@ fun SplashScreen(
             Image(
                 painter = painterResource(id = R.drawable.musicme_icon),
                 contentDescription = "MusicMe App Icon",
-                modifier = Modifier.size(270.dp)
+                modifier = Modifier
+                    .size(270.dp)
+                    .clip(CircleShape)
             )
 
             Spacer(modifier = Modifier.height(18.dp))
