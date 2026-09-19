@@ -107,17 +107,17 @@ fun HomeScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             androidx.compose.foundation.Image(
-                                painter = painterResource(id = R.mipmap.ic_launcher),
+                                painter = painterResource(id = R.drawable.musicme_icon),
                                 contentDescription = "MusicMe App Icon",
                                 modifier = Modifier.size(42.dp)
                             )
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = "MusicMe",
-                            style = MaterialTheme.typography.titleLarge.copy(
+                            text = "MusicME By PaliaAPK HUB",
+                            style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
-                                letterSpacing = (-0.5).sp
+                                letterSpacing = (-0.35).sp
                             ),
                             color = MaterialTheme.colorScheme.onBackground
                         )
