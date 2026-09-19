@@ -1,6 +1,7 @@
 package com.example.ui.viewmodel
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.MusicMeApplication
@@ -40,6 +41,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
     private val app = application as MusicMeApplication
     private val repository = app.musicRepository
     private val playerManager = app.playerManager
+    private val themePrefs = application.getSharedPreferences("musicme_settings", Context.MODE_PRIVATE)
 
     val allSongs: StateFlow<List<Song>> = repository.allSongs
     val favoriteSongs: StateFlow<List<Song>> = repository.favoriteSongs
@@ -81,7 +83,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
     private val _isQueueSheetOpen = MutableStateFlow(false)
     val isQueueSheetOpen: StateFlow<Boolean> = _isQueueSheetOpen.asStateFlow()
 
-    private val _themeMode = MutableStateFlow(AppThemeMode.DARK)
+    private val _themeMode = MutableStateFlow(loadThemeMode())
     val themeMode: StateFlow<AppThemeMode> = _themeMode.asStateFlow()
 
     private val _hasPermission = MutableStateFlow(false)
@@ -197,8 +199,15 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
         _isQueueSheetOpen.value = open
     }
 
+    private fun loadThemeMode(): AppThemeMode = when (themePrefs.getString("theme_mode", "DARK")) {
+        "LIGHT" -> AppThemeMode.LIGHT
+        "SYSTEM" -> AppThemeMode.SYSTEM
+        else -> AppThemeMode.DARK
+    }
+
     fun setThemeMode(mode: AppThemeMode) {
         _themeMode.value = mode
+        themePrefs.edit().putString("theme_mode", mode.name).apply()
     }
 
     // Playback Actions
