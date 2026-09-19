@@ -22,12 +22,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -53,6 +54,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -60,6 +62,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.R
 import com.example.model.Song
 import com.example.ui.components.EqualizerBars
 import com.example.ui.components.SongItemRow
@@ -86,6 +89,7 @@ fun HomeScreen(
     val favoriteSongs by viewModel.favoriteSongs.collectAsState()
     val playbackState by viewModel.playbackState.collectAsState()
     val isScanning by viewModel.isScanning.collectAsState()
+    val themeMode by viewModel.themeMode.collectAsState()
 
     val currentOrRecentSong = playbackState.currentSong ?: recentlyPlayed.firstOrNull() ?: allSongs.firstOrNull()
 
@@ -96,17 +100,15 @@ fun HomeScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(
                             modifier = Modifier
-                                .size(38.dp)
-                                .shadow(8.dp, RoundedCornerShape(12.dp), spotColor = IndigoPrimary.copy(alpha = 0.5f))
+                                .size(42.dp)
                                 .clip(RoundedCornerShape(12.dp))
-                                .background(IndigoPrimary),
+                                .background(MaterialTheme.colorScheme.surfaceVariant),
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.MusicNote,
-                                contentDescription = null,
-                                tint = Color.White,
-                                modifier = Modifier.size(22.dp)
+                            androidx.compose.foundation.Image(
+                                painter = painterResource(id = R.mipmap.ic_launcher),
+                                contentDescription = "MusicMe App Icon",
+                                modifier = Modifier.size(42.dp)
                             )
                         }
                         Spacer(modifier = Modifier.width(10.dp))
@@ -122,60 +124,48 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = { viewModel.refreshLibrary() },
-                        modifier = Modifier
-                            .padding(end = 4.dp)
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(Color.White.copy(alpha = 0.05f))
-                            .testTag("home_refresh_button")
-                    ) {
-                        if (isScanning) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(18.dp),
-                                strokeWidth = 2.dp,
-                                color = IndigoLight
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Default.Refresh,
-                                contentDescription = "Refresh Library",
-                                tint = MaterialTheme.colorScheme.onSurface,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                    }
-                    IconButton(
                         onClick = { viewModel.navigateTo(Screen.Search) },
                         modifier = Modifier
                             .padding(end = 4.dp)
-                            .size(38.dp)
+                            .size(40.dp)
                             .clip(CircleShape)
-                            .background(Color.White.copy(alpha = 0.05f))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f))
                             .testTag("home_search_button")
                     ) {
+                        Icon(Icons.Default.Search, contentDescription = "Search", tint = MaterialTheme.colorScheme.onSurface)
+                    }
+                    IconButton(
+                        onClick = {
+                            val next = if (themeMode == com.example.ui.theme.AppThemeMode.DARK)
+                                com.example.ui.theme.AppThemeMode.LIGHT
+                            else
+                                com.example.ui.theme.AppThemeMode.DARK
+                            viewModel.setThemeMode(next)
+                        },
+                        modifier = Modifier
+                            .padding(end = 4.dp)
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f))
+                            .testTag("home_theme_button")
+                    ) {
                         Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(20.dp)
+                            imageVector = if (themeMode == com.example.ui.theme.AppThemeMode.DARK)
+                                Icons.Default.LightMode else Icons.Default.DarkMode,
+                            contentDescription = "Toggle theme",
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     IconButton(
                         onClick = { viewModel.navigateTo(Screen.Settings) },
                         modifier = Modifier
                             .padding(end = 6.dp)
-                            .size(38.dp)
+                            .size(40.dp)
                             .clip(CircleShape)
-                            .background(Color.White.copy(alpha = 0.05f))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f))
                             .testTag("home_settings_button")
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = "Settings",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(20.dp)
-                        )
+                        Icon(Icons.Default.Settings, contentDescription = "Settings", tint = MaterialTheme.colorScheme.onSurface)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
