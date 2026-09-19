@@ -316,7 +316,8 @@ fun HomeScreen(
                                                 contentDescription = "Artwork",
                                                 contentScale = ContentScale.Crop,
                                                 modifier = Modifier.size(72.dp),
-                                                error = null
+                                                placeholder = painterResource(id = R.drawable.musicme_icon),
+                                                error = painterResource(id = R.drawable.musicme_icon)
                                             )
                                             Icon(
                                                 imageVector = Icons.Default.MusicNote,
