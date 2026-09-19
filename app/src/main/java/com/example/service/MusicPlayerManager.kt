@@ -58,7 +58,7 @@ class MusicPlayerManager private constructor(
     private var originalQueue: List<Song> = emptyList()
 
     init {
-        initMediaPlayer()
+        // Keep startup lightweight. MediaPlayer is created on first playback.
     }
 
     private fun initMediaPlayer() {
