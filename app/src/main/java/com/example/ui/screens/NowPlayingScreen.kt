@@ -104,9 +104,9 @@ fun NowPlayingScreen(
                         .background(
                             Brush.verticalGradient(
                                 listOf(
-                                    Color(0xFF1E212D),
-                                    Color(0xFF11141B),
-                                    Color(0xFF0B0D11)
+                                    MaterialTheme.colorScheme.background,
+                                    MaterialTheme.colorScheme.surface,
+                                    MaterialTheme.colorScheme.background
                                 )
                             )
                         )
@@ -132,7 +132,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = Icons.Default.KeyboardArrowDown,
                                     contentDescription = "Collapse player",
-                                    tint = Color.White,
+                                    tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(32.dp)
                                 )
                             }
@@ -149,7 +149,7 @@ fun NowPlayingScreen(
                                 Text(
                                     text = song.album,
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = Color.White.copy(alpha = 0.7f),
+                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
@@ -162,7 +162,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = Icons.Default.QueueMusic,
                                     contentDescription = "Playing Queue",
-                                    tint = Color.White,
+                                    tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(26.dp)
                                 )
                             }
@@ -210,7 +210,7 @@ fun NowPlayingScreen(
                                 Text(
                                     text = song.title,
                                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                                    color = Color.White,
+                                    color = MaterialTheme.colorScheme.onBackground,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
@@ -231,7 +231,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = if (song.isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                                     contentDescription = "Toggle favorite",
-                                    tint = if (song.isFavorite) PinkAccent else Color.White,
+                                    tint = if (song.isFavorite) PinkAccent else MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(28.dp)
                                 )
                             }
@@ -255,7 +255,7 @@ fun NowPlayingScreen(
                                 colors = SliderDefaults.colors(
                                     thumbColor = IndigoLight,
                                     activeTrackColor = IndigoLight,
-                                    inactiveTrackColor = Color.White.copy(alpha = 0.15f)
+                                    inactiveTrackColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f)
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -275,12 +275,12 @@ fun NowPlayingScreen(
                                 Text(
                                     text = formatTime(displayedCurrentMs),
                                     style = MaterialTheme.typography.labelMedium,
-                                    color = Color.White.copy(alpha = 0.6f)
+                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                                 )
                                 Text(
                                     text = formatTime(playbackState.durationMs),
                                     style = MaterialTheme.typography.labelMedium,
-                                    color = Color.White.copy(alpha = 0.6f)
+                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                                 )
                             }
                         }
@@ -299,7 +299,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = Icons.Default.Shuffle,
                                     contentDescription = "Toggle shuffle",
-                                    tint = if (playbackState.isShuffle) IndigoLight else Color.White.copy(alpha = 0.4f),
+                                    tint = if (playbackState.isShuffle) IndigoLight else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -312,7 +312,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = Icons.Default.SkipPrevious,
                                     contentDescription = "Previous song",
-                                    tint = Color.White,
+                                    tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(36.dp)
                                 )
                             }
@@ -330,7 +330,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = if (playbackState.isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                                     contentDescription = if (playbackState.isPlaying) "Pause" else "Play",
-                                    tint = Color.White,
+                                    tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(38.dp)
                                 )
                             }
@@ -343,7 +343,7 @@ fun NowPlayingScreen(
                                 Icon(
                                     imageVector = Icons.Default.SkipNext,
                                     contentDescription = "Next song",
-                                    tint = Color.White,
+                                    tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(36.dp)
                                 )
                             }
@@ -354,7 +354,7 @@ fun NowPlayingScreen(
                                 modifier = Modifier.testTag("now_playing_repeat_button")
                             ) {
                                 val (icon, tint) = when (playbackState.repeatMode) {
-                                    RepeatMode.OFF -> Pair(Icons.Default.Repeat, Color.White.copy(alpha = 0.4f))
+                                    RepeatMode.OFF -> Pair(Icons.Default.Repeat, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f))
                                     RepeatMode.ALL -> Pair(Icons.Default.Repeat, IndigoLight)
                                     RepeatMode.ONE -> Pair(Icons.Default.RepeatOne, IndigoLight)
                                 }
