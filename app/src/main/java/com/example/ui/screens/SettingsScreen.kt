@@ -53,6 +53,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -69,6 +70,7 @@ fun SettingsScreen(
     viewModel: MusicViewModel,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val themeMode by viewModel.themeMode.collectAsState()
     val allSongs by viewModel.allSongs.collectAsState()
     val albums by viewModel.albums.collectAsState()
@@ -220,11 +222,7 @@ fun SettingsScreen(
                                 Intent.ACTION_VIEW,
                                 Uri.parse("https://shanpalia.github.io/WebsitePaliaAPK_V.2/")
                             )
-                            runCatching { android.content.ContextWrapper(null) }
-                            try {
-                                val context = androidx.compose.ui.platform.LocalContext.current
-                            } catch (_: Exception) {
-                            }
+                            context.startActivity(intent)
                         },
                         testTag = "settings_app_update_item"
                     )
