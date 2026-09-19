@@ -114,15 +114,9 @@ fun MiniPlayer(
                                     contentDescription = "Mini album art",
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier.size(46.dp),
-                                    error = null
+                                    placeholder = androidx.compose.ui.res.painterResource(id = R.drawable.musicme_icon),
+                                    error = androidx.compose.ui.res.painterResource(id = R.drawable.musicme_icon)
                                 )
-                                Icon(
-                                    imageVector = Icons.Default.MusicNote,
-                                    contentDescription = null,
-                                    tint = IndigoLight.copy(alpha = 0.5f),
-                                    modifier = Modifier.size(22.dp)
-                                )
-
                                 if (playbackState.isPlaying) {
                                     Box(
                                         modifier = Modifier
